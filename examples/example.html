@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Basic example</title>
+
+  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="../src/leaflet-tilelayer-custom.js"></script>
+</head>
+<body>
+
+  <div id="map" style="position:absolute;width:90%;height:90%;"></div>
+
+  <script type="text/javascript">
+    function TestOptions() {
+    }
+
+    TestOptions.prototype.tileSize = L.point(256,256);
+
+    TestOptions.prototype.getTile = function(coord, zoom, ownerDocument) {
+      var div = ownerDocument.createElement('div');
+      div.innerHTML = coord;
+      div.style.width = this.tileSize.width + 'px';
+      div.style.height = this.tileSize.height + 'px';
+      div.style.fontSize = '10';
+      div.style.borderStyle = 'solid';
+      div.style.borderWidth = '1px';
+      div.style.borderColor = '#AAAAAA';
+      div.style.backgroundColor = '#E5E3DF';
+      div.style.backgroundImage = "url('http://leafletjs.com/docs/images/leaf-green.png')";
+      div.style.backgroundRepeat = "no-repeat";
+      return div;
+    };
+
+    var options = new TestOptions();
+    var map = new L.Map('map', { center: new L.LatLng(42.3584308, -71.0597732), zoom: 15, layers: [L.tileLayer.custom(options)] });
+  </script>
+</body>
+</html>
